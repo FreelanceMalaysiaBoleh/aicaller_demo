@@ -44,7 +44,7 @@ call_record_collection.insert_many(dummy_call_records)
 users = [
     {
         "_id": ObjectId(),
-        "name": "John Doe",
+        "name": "John",
         "email": "john.doe@example.com",
         "phone": "+123456789",
         "role": "customer",
@@ -52,7 +52,7 @@ users = [
     },
     {
         "_id": ObjectId(),
-        "name": "Jane Smith",
+        "name": "Jane",
         "email": "jane.smith@example.com",
         "phone": "+987654321",
         "role": "support",
@@ -88,15 +88,83 @@ manuals = [
         "_id": ObjectId(),
         "title": "Telco System Guide",
         "description": "Overview of the telco system architecture.",
-        "content": "This manual explains the basic telco system setup...",
+        "content": (
+            "The Telco System Guide provides a comprehensive overview of the telecommunication "
+            "system's architecture, including hardware components, software configurations, "
+            "and network setup. It covers topics such as:\n\n"
+            "1. **Core Network Infrastructure:** Explanation of switches, routers, and modems.\n"
+            "2. **Software Systems:** Details on billing systems, CRM, and network monitoring.\n"
+            "3. **Integration Guidelines:** How different systems interact within the architecture.\n"
+            "4. **Common Workflows:** Description of daily operations and troubleshooting steps.\n"
+            "5. **Support Process Overview:** Guidelines on handling service requests and issues."
+        ),
         "created_at": "2023-09-15"
     },
     {
         "_id": ObjectId(),
         "title": "Troubleshooting Guide",
         "description": "How to troubleshoot common telco issues.",
-        "content": "If you encounter network issues, follow these steps...",
+        "content": (
+            "The Troubleshooting Guide helps technicians resolve common telecommunication problems. "
+            "It includes step-by-step instructions for:\n\n"
+            "1. **Network Connectivity Issues:** Solutions for when devices can't connect to the network.\n"
+            "   - Restart the modem and router.\n"
+            "   - Check cable connections.\n"
+            "   - Verify IP settings and DNS configurations.\n"
+            "2. **VoIP Problems:** Fixes for call quality and connectivity issues.\n"
+            "   - Ensure proper SIP configuration.\n"
+            "   - Check bandwidth and network latency.\n"
+            "3. **Slow Internet Speeds:** Methods to improve performance.\n"
+            "   - Restart devices.\n"
+            "   - Limit the number of connected devices.\n"
+            "4. **Hardware Failures:** Steps for diagnosing and replacing faulty equipment."
+        ),
         "created_at": "2023-10-01"
+    },
+    {
+        "_id": ObjectId(),
+        "title": "Network Configuration Manual",
+        "description": "Guide on configuring network settings for different types of devices.",
+        "content": (
+            "The Network Configuration Manual covers how to set up network settings for various devices "
+            "including routers, switches, and end-user devices. Topics include:\n\n"
+            "1. **Router Configuration:** Setting up static IPs, DHCP, and port forwarding.\n"
+            "2. **Switch Setup:** VLAN configuration and link aggregation.\n"
+            "3. **Firewall Settings:** How to configure firewall rules for security.\n"
+            "4. **Device-Specific Configurations:** Network settings for smart devices, printers, and servers.\n"
+            "5. **Troubleshooting Tips:** Addressing common configuration issues."
+        ),
+        "created_at": "2023-08-20"
+    },
+    {
+        "_id": ObjectId(),
+        "title": "Security Best Practices",
+        "description": "Recommendations for securing the telco system.",
+        "content": (
+            "This manual outlines the best practices for securing the telecommunication system to protect "
+            "data and ensure network integrity. Recommendations include:\n\n"
+            "1. **Using Firewalls:** Setting up perimeter and internal firewalls.\n"
+            "2. **Encryption:** Implementing encryption for data in transit and at rest.\n"
+            "3. **Software Updates:** Regularly applying security patches and updates.\n"
+            "4. **User Access Control:** Enforcing strong password policies and multi-factor authentication.\n"
+            "5. **Monitoring and Alerts:** Setting up systems to detect and alert on suspicious activities."
+        ),
+        "created_at": "2023-07-10"
+    },
+    {
+        "_id": ObjectId(),
+        "title": "VoIP Configuration Guide",
+        "description": "Instructions for setting up VoIP services.",
+        "content": (
+            "The VoIP Configuration Guide provides instructions for setting up and maintaining VoIP services, "
+            "including call quality optimization. Topics include:\n\n"
+            "1. **SIP Trunk Configuration:** How to set up SIP trunks for inbound and outbound calls.\n"
+            "2. **Codec Settings:** Choosing the right codec for your network conditions.\n"
+            "3. **Quality of Service (QoS):** Ensuring call quality by prioritizing VoIP traffic.\n"
+            "4. **VoIP Security:** Protecting against threats such as toll fraud and eavesdropping.\n"
+            "5. **Troubleshooting VoIP Issues:** Identifying and resolving common VoIP problems."
+        ),
+        "created_at": "2023-06-05"
     }
 ]
 manuals_collection.insert_many(manuals)

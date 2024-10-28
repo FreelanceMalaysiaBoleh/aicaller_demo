@@ -42,7 +42,7 @@ PORT = int(os.getenv('PORT', 5050))
 
 # System message that sets the behavior of the assistant
 SYSTEM_MESSAGE = (
-    "You are a helpful and knowledgeable AI assistant. "
+    "You are a helpful and knowledgeable customer service from Omantel,telco company. "
     "You can use provided tools to assist the user when necessary. "
     "If you use a tool, wait for the result before responding to the user. "
     "Always provide clear and concise information."
@@ -100,7 +100,7 @@ async def handle_incoming_call(request: Request):
     """
     response = VoiceResponse()
     # Provide introductory messages to the caller
-    response.say("Please wait while we connect your call to the AI voice assistant, powered by Twilio and the OpenAI Realtime API.")
+    response.say("Please wait while we connect your call to the Omantel voice assistant.")
     response.pause(length=1)
     response.say("OK, you can start talking!")
     host = request.url.hostname
@@ -149,7 +149,7 @@ async def handle_media_stream(websocket: WebSocket):
             try:
                 async for message in websocket.iter_text():
                     data = json.loads(message)
-                    print(data)
+                    # print(data)
                     event = data.get('event')
 
                     if event == 'media' and openai_ws.open:
@@ -423,6 +423,7 @@ def get_weather(city: str) -> str:
 def create_ticket(user_name: str, description: str) -> dict:
     """
     Create a new ticket for a user based on their name.
+    If the user does not exist, create a new user.
     :param user_name: The name of the user who is creating the ticket.
     :param description: The description of the issue or request.
     :return: A dictionary with the result of the ticket creation.
@@ -431,11 +432,20 @@ def create_ticket(user_name: str, description: str) -> dict:
     user = users_collection.find_one({"name": user_name})
 
     if not user:
-        # Return an error if the user is not found
-        return {"error": f"User with name {user_name} not found."}
-
-    # Extract the user ID from the user document
-    user_id = user["_id"]
+        # Create a new user if not found
+        new_user = {
+            "name": user_name,
+            "email": f"{user_name.lower().replace(' ', '.')}@example.com",  # Example email format
+            "phone": "N/A",  # Set as "N/A" or provide a default value if available
+            "role": "customer",
+            "account_status": "active",
+            "created_at": datetime.now()
+        }
+        # Insert the new user into the users collection
+        user_id = users_collection.insert_one(new_user).inserted_id
+    else:
+        # Use the existing user's ID
+        user_id = user["_id"]
 
     # Create a new ticket document
     ticket = {
