@@ -33,14 +33,14 @@ dummy_call_records = [
         "phone_number": "+60123456789",
         "call_duration": 320,  # duration in seconds
         "call_time": datetime.now(),
-        "caller_name": "John Doe",
+        "caller_name": "John",
     },
     {
         "call_id": 2,
         "phone_number": "+60198765432",
         "call_duration": 600,  # duration in seconds
         "call_time": datetime.now(),
-        "caller_name": "Jane Smith",
+        "caller_name": "Jane",
     }
 ]
 
