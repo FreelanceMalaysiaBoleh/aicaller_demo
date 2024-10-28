@@ -19,6 +19,13 @@ manuals_collection = db["manuals"]
 workflow_collection = db["workflow"]
 call_record_collection = db['call_records']
 
+# Clear existing data from the collections
+users_collection.delete_many({})
+tickets_collection.delete_many({})
+manuals_collection.delete_many({})
+workflow_collection.delete_many({})
+call_record_collection.delete_many({})
+
 # Dummy data for calling records
 dummy_call_records = [
     {
