@@ -520,20 +520,19 @@ async def get_tickets():
     Returns:
         List of tickets with details such as description, status, and user information.
     """
-    try:
+
         # Fetch all tickets from the database
-        tickets = list(tickets_collection.find())
-        # Convert ObjectId to string and format datetime fields for JSON serialization
-        for ticket in tickets:
-            ticket["_id"] = str(ticket["_id"])
-            ticket["user_id"] = str(ticket["user_id"])
-            if ticket.get("assigned_to"):
-                ticket["assigned_to"] = str(ticket["assigned_to"])
-            if "created_at" in ticket:
-                ticket["created_at"] = ticket["created_at"].isoformat()
-        return JSONResponse(content=tickets)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail="An error occurred while fetching tickets.")
+    tickets = list(tickets_collection.find())
+    # Convert ObjectId to string and format datetime fields for JSON serialization
+    for ticket in tickets:
+        ticket["_id"] = str(ticket["_id"])
+        ticket["user_id"] = str(ticket["user_id"])
+        if ticket.get("assigned_to"):
+            ticket["assigned_to"] = str(ticket["assigned_to"])
+        if "created_at" in ticket:
+            ticket["created_at"] = ticket["created_at"].isoformat()
+    return JSONResponse(content=tickets)
+
 
 # Endpoint to retrieve the list of call records
 @app.get("/api/call-records", response_model=list)
