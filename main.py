@@ -523,7 +523,7 @@ async def get_tickets():
     try:
         # Fetch all tickets from the database
         tickets = list(tickets_collection.find())
-        # Convert ObjectId to string and format datetime fields for JSON serialization
+        # Convert ObjectId to string, format datetime fields, and add user information for JSON serialization
         for ticket in tickets:
             ticket["_id"] = str(ticket["_id"])
             ticket["user_id"] = str(ticket["user_id"])
@@ -531,10 +531,15 @@ async def get_tickets():
                 ticket["assigned_to"] = str(ticket["assigned_to"])
             if "created_at" in ticket and isinstance(ticket["created_at"], datetime):
                 ticket["created_at"] = ticket["created_at"].isoformat()
+            
+            # Fetch the user's name from the users collection
+            user = users_collection.find_one({"_id": ObjectId(ticket["user_id"])})
+            if user:
+                ticket["user_name"] = user["name"]
+
         return JSONResponse(content=tickets)
     except Exception as e:
         raise HTTPException(status_code=500, detail="An error occurred while fetching tickets.")
-
 
 # Endpoint to retrieve the list of call records
 @app.get("/api/call-records", response_model=list)
